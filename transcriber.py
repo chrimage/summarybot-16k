@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 def transcribe_video(video_url: str):
     # Download audio
     audio_file = download_youtube_audio(video_url)

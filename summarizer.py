@@ -16,7 +16,7 @@ def summarize_video(video_url: str):
     transcript_path = transcribe_video(video_url)
     with open(transcript_path, "r") as f:
         transcript = f.read()
-    chat = ChatOpenAI(temperature=1.0,model="gpt-3.5-turbo-16k")
+    chat = ChatOpenAI(temperature=1.0,model="gpt-3.5-turbo-16k",openai_api_key=os.getenv("OPENAI_API_KEY"))
     messages = [
         SystemMessage(
             content="You are a YouTube video summarizer. You will be provided with a transcript of the video. Please reply with a detailed summary of the video."

@@ -4,31 +4,30 @@ import os
 
 
 def download_youtube_audio(url):
+    """Download audio from YouTube video."""
     # Create YouTube object
-    yt = YouTube(url)
+    youtube_video = YouTube(url)
 
     # Get highest quality audio stream
-    video = yt.streams.filter(only_audio=True).first()
+    audio_stream = youtube_video.streams.filter(only_audio=True).first()
 
     # Slugify the title
-    filename = slugify(yt.title)
+    title = youtube_video.title
+    slugified_title = slugify(title)
+    filename = slugified_title + ".mp3"
 
     # Make sure the ./audio/ directory exists
     audio_directory = "./audio/"
     if not os.path.exists(audio_directory):
         os.makedirs(audio_directory)
+        print("Created audio directory")
 
-    # Download the audio
-    out_file = video.download(output_path=audio_directory, filename=filename)
+    # If the file already exists, return the file path
+    if os.path.isfile(audio_directory + filename):
+        return audio_directory + filename
 
-    # Rename the file to have .mp3 extension
-    base, ext = os.path.splitext(out_file)
-    new_file = base + ".mp3"
-    os.rename(out_file, new_file)
-    print(new_file)
-
-    # Return the new file path
-    return new_file
-
-
-
+    # If the file does not exist, download it
+    elif not os.path.isfile(audio_directory + filename):
+        print("Downloading audio...")  # Download the audio
+        out_file = audio_stream.download(output_path=audio_directory, filename=filename)
+        return out_file
