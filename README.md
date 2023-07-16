@@ -39,16 +39,4 @@ Pull requests are welcome! Potential areas of contribution:
 
 ## License
 
-This project is licensed under the MIT license - see [LICENSE](LICENSE) for more details.#SUMMARYBOT-16K
-
-This app uses gpt-3.5-turbo-16k to summarize YouTube videos.
-
-First, it uses pytube to download the video's audio stream.
-
-Second, it runs the audio file through OpenAI Whisper for transcription.
-
-Finally, it uses LangChain to prompt gpt-3.5-turbo-16k for a summary.
-
-The audio, transcript, and summary are all saved to folders within the working directory.
-
-Create a file named ".env" and add "OPENAI_API_KEY='your_api_key'" to the file.
+This project is licensed under the MIT license - see [LICENSE](LICENSE) for more details.
