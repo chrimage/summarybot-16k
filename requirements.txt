@@ -1,0 +1,5 @@
+langchain
+openai
+pytube
+python-dotenv
+requests
