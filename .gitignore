@@ -3,3 +3,4 @@ summaries/
 audio/
 transcripts/
 __pycache__/
+.aider*
