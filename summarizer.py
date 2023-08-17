@@ -38,5 +38,7 @@ def summarize_video(video_url: str):
     # Save summary to file. We replace the transcript file's extension with .txt
     summary_filename = os.path.basename(transcript_path)
     summary_path = os.path.join(summaries_folder, summary_filename)
-    with open(summary_path, "w") as f:
-        f.write(summary)
+    if not os.path.exists(summary_path):
+        with open(summary_path, "w") as f:
+            f.write(summary)
+    return summary_path

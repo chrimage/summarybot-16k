@@ -8,7 +8,9 @@ def download_youtube_audio(url):
     youtube = YouTube(url)
     video = youtube.streams.filter(only_audio=True).first()
     filename = slugify(video.title)
-    output_path = video.download(filename=filename)
+    output_path = os.path.join(os.getcwd(), filename + '.mp4')
+    if not os.path.exists(output_path):
+        output_path = video.download(filename=filename)
     return output_path
 
 
