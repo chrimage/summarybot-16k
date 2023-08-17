@@ -6,33 +6,38 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def transcribe_video(video_url: str):
-    # Download audio
-    audio_file = download_youtube_audio(video_url)
-
-    if audio_file is None or not os.path.exists(audio_file):
-        print(f"Failed to download audio for {video_url}")
-        return None
-
-    # Check if transcript file already exists
+def check_transcript_exists(audio_file):
+    """Check if transcript file already exists."""
     base_filename, _ = os.path.splitext(os.path.basename(audio_file))
     transcript_filename = base_filename + ".txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
-
     if os.path.exists(transcript_path):
-        print(f"Transcript file already exists for {video_url}")
+        print(f"Transcript file already exists for {audio_file}")
         return transcript_path
+    return None
 
-    # Open the audio file
+def transcribe_audio(audio_file):
+    """Transcribe audio file."""
+    base_filename, _ = os.path.splitext(os.path.basename(audio_file))
+    transcript_filename = base_filename + ".txt"
+    transcript_path = os.path.join("transcripts", transcript_filename)
     with open(audio_file, "rb") as f:
         try:
             transcript = openai.Audio.transcribe("whisper-1", f)
         except Exception as e:
-            print(f"Failed to transcribe audio for {video_url}: {e}")
+            print(f"Failed to transcribe audio for {audio_file}: {e}")
             return None
-
-    # Save transcript to file
     with open(transcript_path, "w") as f:
         f.write(transcript['text'])
-
     return transcript_path
+
+def transcribe_video(video_url: str):
+    """Download audio, check if transcript exists, and transcribe audio."""
+    from downloader import download_and_check_audio
+    audio_file = download_and_check_audio(video_url)
+    if audio_file is None:
+        return None
+    transcript_path = check_transcript_exists(audio_file)
+    if transcript_path is not None:
+        return transcript_path
+    return transcribe_audio(audio_file)
