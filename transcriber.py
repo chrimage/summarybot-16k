@@ -41,7 +41,7 @@ def transcribe_audio(audio_file):
 def transcribe_video(video_url: str, video_title: str):
     """Download audio, check if transcript exists, and transcribe audio."""
     from downloader import download_and_check_audio
-    audio_file = download_and_check_audio(video_url)
+    audio_file = download_and_check_audio(video_url, video_title)
     if audio_file is None:
         return None
     transcript_path = check_transcript_exists(audio_file, video_title)

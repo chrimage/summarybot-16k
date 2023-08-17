@@ -18,7 +18,7 @@ def main():
         return
     video_title = get_video_title(video_url)
     print(f"Processing video: {video_title} at {video_url}")
-    summary = summarize_video(video_url, video_title)
+    summary = summarize_video(video_url, video_title, video_title)
     print(f"Summary saved at: {summary}")
     print(summary)
 
