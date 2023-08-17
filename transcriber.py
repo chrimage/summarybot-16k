@@ -38,13 +38,13 @@ def transcribe_audio(audio_file):
         print(f"Transcript saved at: {transcript_path}")
     return transcript_path
 
-def transcribe_video(video_url: str):
+def transcribe_video(video_url: str, video_title: str):
     """Download audio, check if transcript exists, and transcribe audio."""
     from downloader import download_and_check_audio
     audio_file = download_and_check_audio(video_url)
     if audio_file is None:
         return None
-    transcript_path = check_transcript_exists(audio_file)
+    transcript_path = check_transcript_exists(audio_file, video_title)
     if transcript_path is not None:
         return transcript_path
-    return transcribe_audio(audio_file)
+    return transcribe_audio(audio_file, video_title)

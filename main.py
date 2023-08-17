@@ -4,6 +4,8 @@ from summarizer import summarize_video
 import argparse
 from typing import Optional
 
+from utils import get_video_title
+
 def main():
     # Parse arguments
     parser = argparse.ArgumentParser()
@@ -11,8 +13,9 @@ def main():
     parser.add_argument("url")
     args = parser.parse_args()
     video_url = args.url
+    video_title = get_video_title(video_url)
     print(f"Processing video: {video_url}")
-    summary = summarize_video(video_url)
+    summary = summarize_video(video_url, video_title)
     print(f"Summary saved at: {summary}")
     print(summary)
 
