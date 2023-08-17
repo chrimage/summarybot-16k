@@ -1,5 +1,6 @@
 from pytube import YouTube
 from utils import get_video_title
+from slugify import slugify
 import os
 
 
