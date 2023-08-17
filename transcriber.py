@@ -6,11 +6,16 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def check_transcript_exists(audio_file):
-    """Check if transcript file already exists."""
-    video_title = download_youtube_audio(video_url).title
+def get_transcript_filename_and_path(video_title):
+    """Get the transcript filename and path."""
     transcript_filename = video_title + "-transcript.txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
+    return transcript_filename, transcript_path
+
+def check_transcript_exists(audio_file):
+    """Check if transcript file already exists."""
+    video_title = get_video_title(video_url)
+    _, transcript_path = get_transcript_filename_and_path(video_title)
     if os.path.exists(transcript_path):
         print(f"Transcript file already exists for {audio_file}")
         return transcript_path
@@ -18,9 +23,8 @@ def check_transcript_exists(audio_file):
 
 def transcribe_audio(audio_file):
     """Transcribe audio file."""
-    base_filename, _ = os.path.splitext(os.path.basename(audio_file))
-    transcript_filename = base_filename + "-transcript.txt"
-    transcript_path = os.path.join("transcripts", transcript_filename)
+    video_title = get_video_title(video_url)
+    _, transcript_path = get_transcript_filename_and_path(video_title)
     with open(audio_file, "rb") as f:
         try:
             transcript = openai.Audio.transcribe("whisper-1", f)

@@ -3,11 +3,15 @@ from slugify import slugify
 import os
 
 
-def download_youtube_audio(url):
-    """Download audio from YouTube video and return the file path."""
+def get_video_title(url):
+    """Get the title of the YouTube video."""
     youtube = YouTube(url)
     video = youtube.streams.filter(only_audio=True).first()
-    filename = slugify(video.title) + '.webm'
+    return slugify(video.title)
+
+def download_youtube_audio(url):
+    """Download audio from YouTube video and return the file path."""
+    filename = get_video_title(url) + '.webm'
     output_path = os.path.join(os.getcwd(), filename)
     if os.path.exists(output_path):
         print(f"Audio file already exists at: {output_path}")

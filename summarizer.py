@@ -11,6 +11,12 @@ from langchain.schema import AIMessage, HumanMessage, SystemMessage
 from dotenv import load_dotenv
 load_dotenv()
 
+def get_summary_filename_and_path(video_title):
+    """Get the summary filename and path."""
+    summary_filename = video_title + "-summary.txt"
+    summary_path = os.path.join("summaries", summary_filename)
+    return summary_filename, summary_path
+
 def summarize_video(video_url: str):
     transcript_path = transcribe_video(video_url)
     with open(transcript_path, "r") as f:
@@ -36,9 +42,8 @@ def summarize_video(video_url: str):
     summaries_folder = "summaries"
     ensure_directory_exists(summaries_folder)
     # Save summary to file. We replace the transcript file's extension with .txt
-    video_title = download_youtube_audio(video_url).title
-    summary_filename = video_title + "-summary.txt"
-    summary_path = os.path.join(summaries_folder, summary_filename)
+    video_title = get_video_title(video_url)
+    _, summary_path = get_summary_filename_and_path(video_title)
     if not os.path.exists(summary_path):
         print("Summarizing transcript...")
         with open(summary_path, "w") as f:
