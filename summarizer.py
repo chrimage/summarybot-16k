@@ -19,7 +19,7 @@ def get_summary_filename_and_path(video_title):
     return summary_filename, summary_path
 
 def summarize_video(video_url: str, video_title: str):
-    transcript_path = transcribe_video(video_url, video_title, video_title)
+    transcript_path = transcribe_video(video_url, video_title)
     with open(transcript_path, "r") as f:
         transcript = f.read()
     chat = ChatOpenAI(temperature=1.0,model="gpt-3.5-turbo-16k",openai_api_key=os.getenv("OPENAI_API_KEY"))
