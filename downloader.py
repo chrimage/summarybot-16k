@@ -9,7 +9,9 @@ def download_youtube_audio(url):
     video = youtube.streams.filter(only_audio=True).first()
     filename = slugify(video.title) + '.webm'
     output_path = os.path.join(os.getcwd(), filename)
-    if not os.path.exists(output_path):
+    if os.path.exists(output_path):
+        print(f"Audio file already exists at: {output_path}")
+    else:
         print(f"Downloading audio from: {url}")
         output_path = video.download(filename=filename, output_path=output_path)
         print(f"Audio downloaded at: {output_path}")
