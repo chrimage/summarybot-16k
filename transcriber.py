@@ -1,4 +1,5 @@
-from downloader import download_youtube_audio, get_video_title
+from downloader import download_youtube_audio
+from utils import get_video_title
 import openai
 import os
 from dotenv import load_dotenv

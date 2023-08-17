@@ -9,6 +9,7 @@ from langchain.prompts.chat import (
 )
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 from dotenv import load_dotenv
+from utils import get_video_title
 load_dotenv()
 
 def get_summary_filename_and_path(video_title):

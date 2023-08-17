@@ -1,13 +1,7 @@
 from pytube import YouTube
-from slugify import slugify
+from utils import get_video_title
 import os
 
-
-def get_video_title(url):
-    """Get the title of the YouTube video."""
-    youtube = YouTube(url)
-    video = youtube.streams.filter(only_audio=True).first()
-    return slugify(video.title)
 
 def download_youtube_audio(url):
     """Download audio from YouTube video and return the file path."""
