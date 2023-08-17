@@ -21,9 +21,9 @@ def download_youtube_audio(url, video_url):
     return output_path
 
 
-def download_and_check_audio(url):
+def download_and_check_audio(url, video_url):
     """Download audio from YouTube video and check if the file exists."""
-    audio_file = download_youtube_audio(url)
+    audio_file = download_youtube_audio(url, video_url)
     if audio_file is None or not os.path.exists(audio_file):
         print(f"Failed to download audio for {url}")
         return None
