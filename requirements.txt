@@ -3,3 +3,4 @@ openai
 pytube
 python-dotenv
 requests
+python-slugify
