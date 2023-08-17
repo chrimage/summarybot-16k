@@ -7,10 +7,10 @@ def download_youtube_audio(url):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
     video = youtube.streams.filter(only_audio=True).first()
-    filename = slugify(video.title)
-    output_path = os.path.join(os.getcwd(), filename + '.mp4')
+    filename = slugify(video.title) + '.webm'
+    output_path = os.path.join(os.getcwd(), filename)
     if not os.path.exists(output_path):
-        output_path = video.download(filename=filename)
+        output_path = video.download(filename=filename, output_path=output_path)
     return output_path
 
 
