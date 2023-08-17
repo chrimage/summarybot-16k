@@ -9,7 +9,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 def check_transcript_exists(audio_file):
     """Check if transcript file already exists."""
     base_filename, _ = os.path.splitext(os.path.basename(audio_file))
-    transcript_filename = base_filename + ".txt"
+    transcript_filename = base_filename + "-transcript.txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
     if os.path.exists(transcript_path):
         print(f"Transcript file already exists for {audio_file}")
@@ -19,7 +19,7 @@ def check_transcript_exists(audio_file):
 def transcribe_audio(audio_file):
     """Transcribe audio file."""
     base_filename, _ = os.path.splitext(os.path.basename(audio_file))
-    transcript_filename = base_filename + ".txt"
+    transcript_filename = base_filename + "-transcript.txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
     with open(audio_file, "rb") as f:
         try:
