@@ -43,7 +43,6 @@ def summarize_video(video_url: str, video_title: str):
     summaries_folder = "summaries"
     ensure_directory_exists(summaries_folder)
     # Save summary to file. We replace the transcript file's extension with .txt
-    video_title = get_video_title(video_url)
     _, summary_path = get_summary_filename_and_path(video_title)
     if not os.path.exists(summary_path):
         print("Summarizing transcript...")
