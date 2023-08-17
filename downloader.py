@@ -12,7 +12,9 @@ def get_video_title(url):
 def download_youtube_audio(url):
     """Download audio from YouTube video and return the file path."""
     filename = get_video_title(url) + '.webm'
-    output_path = os.path.join(os.getcwd(), filename)
+    output_path = os.path.join(os.getcwd(), 'audio', filename)
+    from utils import ensure_directory_exists
+    ensure_directory_exists('audio')
     if os.path.exists(output_path):
         print(f"Audio file already exists at: {output_path}")
     else:
