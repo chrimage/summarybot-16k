@@ -36,7 +36,8 @@ def summarize_video(video_url: str):
     summaries_folder = "summaries"
     ensure_directory_exists(summaries_folder)
     # Save summary to file. We replace the transcript file's extension with .txt
-    summary_filename = os.path.basename(transcript_path)
+    video_title = download_youtube_audio(video_url).title
+    summary_filename = video_title + "-summary.txt"
     summary_path = os.path.join(summaries_folder, summary_filename)
     if not os.path.exists(summary_path):
         print("Summarizing transcript...")
