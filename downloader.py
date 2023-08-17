@@ -4,7 +4,7 @@ from slugify import slugify
 import os
 
 
-def download_youtube_audio(url):
+def download_youtube_audio(url, video_url):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
     video = youtube.streams.filter(only_audio=True).first()

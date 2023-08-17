@@ -7,16 +7,16 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def get_transcript_filename_and_path(video_title):
+def get_transcript_filename_and_path(video_title, video_url):
     """Get the transcript filename and path."""
     transcript_filename = video_title + "-transcript.txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
     return transcript_filename, transcript_path
 
-def check_transcript_exists(audio_file):
+def check_transcript_exists(audio_file, video_url):
     """Check if transcript file already exists."""
     video_title = get_video_title(video_url)
-    _, transcript_path = get_transcript_filename_and_path(video_title)
+    _, transcript_path = get_transcript_filename_and_path(video_title, video_url)
     if os.path.exists(transcript_path):
         print(f"Transcript file already exists for {audio_file}")
         return transcript_path
