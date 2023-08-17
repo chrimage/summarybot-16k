@@ -13,7 +13,7 @@ def main():
     parser.add_argument("url")
     args = parser.parse_args()
     video_url = args.url
-    if not re.match(r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})', video_url):
+    if not ("youtube" in video_url or "youtu.be" in video_url):
         print("Invalid YouTube URL")
         return
     video_title = get_video_title(video_url)
