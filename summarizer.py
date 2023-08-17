@@ -25,10 +25,11 @@ def summarize_video(video_url: str):
     ]
     response = chat(messages)
     summary = response.content
+    from utils import ensure_directory_exists
+
     # Create summaries folder if it doesn't exist
     summaries_folder = "summaries"
-    if not os.path.exists(summaries_folder):
-        os.makedirs(summaries_folder)
+    ensure_directory_exists(summaries_folder)
     # Save summary to file. We replace the transcript file's extension with .txt
     summary_filename = os.path.basename(transcript_path)
     summary_path = os.path.join(summaries_folder, summary_filename)

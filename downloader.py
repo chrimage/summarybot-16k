@@ -16,11 +16,11 @@ def download_youtube_audio(url):
     slugified_title = slugify(title)
     filename = slugified_title + ".mp3"
 
+    from utils import ensure_directory_exists
+
     # Make sure the ./audio/ directory exists
     audio_directory = "./audio/"
-    if not os.path.exists(audio_directory):
-        os.makedirs(audio_directory)
-        print("Created audio directory")
+    ensure_directory_exists(audio_directory)
 
     # If the file already exists, return the file path
     if os.path.isfile(audio_directory + filename):
