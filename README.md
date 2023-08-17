@@ -18,7 +18,7 @@ To use the summarizer:
 
 1. Clone the repository
 2. Install dependencies (`pip install -r requirements.txt`)
-3. Add OpenAI API key to `.env` file
+3. Create a `.env` file in the project root directory and add your OpenAI API key to it like this: `OPENAI_API_KEY=your_api_key_here`. This project uses the `dotenv` library to load this key into the environment variables.
 4. Run `python summarize.py {youtube_url}`
 
 The audio file, transcript, and summary will be saved to the `/audio`, `/transcripts`, and `/summaries` folders respectively.
