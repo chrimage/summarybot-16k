@@ -39,6 +39,8 @@ def summarize_video(video_url: str):
     summary_filename = os.path.basename(transcript_path)
     summary_path = os.path.join(summaries_folder, summary_filename)
     if not os.path.exists(summary_path):
+        print("Summarizing transcript...")
         with open(summary_path, "w") as f:
             f.write(summary)
+        print("Summary completed.")
     return summary_path

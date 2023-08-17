@@ -11,7 +11,9 @@ def main():
     parser.add_argument("url")
     args = parser.parse_args()
     video_url = args.url
+    print(f"Processing video: {video_url}")
     summary = summarize_video(video_url)
+    print(f"Summary saved at: {summary}")
     print(summary)
 
 if __name__ == "__main__":

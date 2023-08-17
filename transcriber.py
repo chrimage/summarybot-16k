@@ -28,7 +28,9 @@ def transcribe_audio(audio_file):
             print(f"Failed to transcribe audio for {audio_file}: {e}")
             return None
     with open(transcript_path, "w") as f:
+        print(f"Transcribing audio from: {audio_file}")
         f.write(transcript['text'])
+        print(f"Transcript saved at: {transcript_path}")
     return transcript_path
 
 def transcribe_video(video_url: str):
