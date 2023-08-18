@@ -7,23 +7,22 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def get_transcript_filename_and_path(video_title, video_url):
+def get_transcript_filename_and_path(video_title):
     """Get the transcript filename and path."""
     transcript_filename = video_title + "-transcript.txt"
     transcript_path = os.path.join("transcripts", transcript_filename)
     return transcript_filename, transcript_path
 
-def check_transcript_exists(audio_file, video_url):
+def check_transcript_exists(video_title):
     """Check if transcript file already exists."""
-    _, transcript_path = get_transcript_filename_and_path(video_title, video_url)
+    _, transcript_path = get_transcript_filename_and_path(video_title)
     if os.path.exists(transcript_path):
         print(f"Transcript file already exists for {audio_file}")
         return transcript_path
     return None
 
-def transcribe_audio(audio_file):
+def transcribe_audio(audio_file, video_title):
     """Transcribe audio file."""
-    video_title = get_video_title(video_url)
     _, transcript_path = get_transcript_filename_and_path(video_title)
     with open(audio_file, "rb") as f:
         try:
@@ -41,9 +40,7 @@ def transcribe_video(video_url: str, video_title: str):
     """Download audio, check if transcript exists, and transcribe audio."""
     from downloader import download_and_check_audio
     audio_file = download_and_check_audio(video_url, video_title)
-    if audio_file is None:
-        return None
-    transcript_path = check_transcript_exists(audio_file, video_title)
+    transcript_path = check_transcript_exists(video_title)
     if transcript_path is not None:
         return transcript_path
     return transcribe_audio(audio_file, video_title)

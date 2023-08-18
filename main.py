@@ -16,9 +16,9 @@ def main():
     if not ("youtube" in video_url or "youtu.be" in video_url):
         print("Invalid YouTube URL")
         return
-    video_title = get_video_title(video_url)
-    print(f"Processing video: {video_title} at {video_url}")
-    summary = summarize_video(video_url, video_title)
+
+    print(f"Processing video: {video_url}")
+    summary = summarize_video(video_url)
     print(f"Summary saved at: {summary}")
     print(summary)
 
