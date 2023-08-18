@@ -14,7 +14,7 @@ load_dotenv()
 
 def get_summary_filename_and_path(video_title):
     """Get the summary filename and path."""
-    summary_filename = video_title + "-summary.txt"
+    summary_filename = video_title + "-summary.md"
     summary_path = os.path.join("summaries", summary_filename)
     return summary_filename, summary_path
 
