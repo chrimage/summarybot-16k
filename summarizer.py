@@ -32,7 +32,7 @@ def summarize_video(video_url: str):
         system_message_content = "You are a YouTube video summarizer. You will be provided with a transcript of the video. Please reply with a detailed summary of the video."
     messages = [
         SystemMessage(content=system_message_content),
-        HumanMessage(content=transcript)
+        HumanMessage(content=f"Title: {video_title}\n\n{transcript}")
     ]
     response = chat(messages)
     summary = response.content
