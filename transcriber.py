@@ -17,7 +17,7 @@ def check_transcript_exists(video_title):
     """Check if transcript file already exists."""
     _, transcript_path = get_transcript_filename_and_path(video_title)
     if os.path.exists(transcript_path):
-        print(f"Transcript file already exists for {audio_file}")
+        print(f"Transcript file already exists for {video_title}")
         return transcript_path
     return None
 
