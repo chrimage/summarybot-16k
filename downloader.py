@@ -9,7 +9,7 @@ from urllib.error import HTTPError
 def download_youtube_audio(url, video_title):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
-    video = youtube.streams.filter(only_audio=True).first()
+    video = youtube.streams.filter(only_audio=True).order_by('abr').first()
     filename = slugify(video_title) + '.webm'
     output_directory = os.path.join(os.getcwd(), 'audio')
     from utils import ensure_directory_exists
