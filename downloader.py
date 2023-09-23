@@ -9,8 +9,8 @@ from urllib.error import HTTPError
 def download_youtube_audio(url, video_title):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
-    video = youtube.streams.filter(only_audio=True).order_by('abr').first()
-    filename = slugify(video_title) + '.webm'
+    audio = youtube.streams.filter(only_audio=True,audio_codec="mp4a.40.5").first()
+    filename = slugify(video_title) + '.m4a'
     output_directory = os.path.join(os.getcwd(), 'audio')
     from utils import ensure_directory_exists
     ensure_directory_exists(output_directory)
@@ -19,9 +19,8 @@ def download_youtube_audio(url, video_title):
         print(f"Audio file already exists at: {output_path}")
     else:
         print(f"Downloading audio from: {url}")
-        try:
-            video.download(filename=filename, output_path=output_directory)
-            print(f"Audio downloaded at: {output_path}")
+        audio.download(filename=filename, output_path=output_directory)
+        print(f"Audio downloaded at: {output_path}")
     return output_path
 
 
