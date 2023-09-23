@@ -28,7 +28,7 @@ import subprocess
 def remove_silence(audio_file):
     """Remove silence from the audio file using ffmpeg."""
     output_file = audio_file.replace('.m4a', '_no_silence.m4a')
-    command = f"ffmpeg -i {audio_file} -af silenceremove=1:0:-50dB -ac 1 -ab 48k {output_file}"
+    command = f"ffmpeg -i {audio_file} -af silenceremove=stop_periods=-1:stop_duration=1:stop_threshold=-90dB -ac 1 -ab 48k {output_file}"
     subprocess.call(command, shell=True)
     return output_file
 
