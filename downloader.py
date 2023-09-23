@@ -4,6 +4,8 @@ from slugify import slugify
 import os
 
 
+from urllib.error import HTTPError
+
 def download_youtube_audio(url, video_title):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
@@ -17,8 +19,12 @@ def download_youtube_audio(url, video_title):
         print(f"Audio file already exists at: {output_path}")
     else:
         print(f"Downloading audio from: {url}")
-        video.download(filename=filename, output_path=output_directory)
-        print(f"Audio downloaded at: {output_path}")
+        try:
+            video.download(filename=filename, output_path=output_directory)
+            print(f"Audio downloaded at: {output_path}")
+        except HTTPError as e:
+            print(f"Failed to download audio due to size limit exceeded: {e}")
+            return None
     return output_path
 
 
