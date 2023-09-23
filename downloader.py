@@ -23,11 +23,20 @@ def download_youtube_audio(url, video_title):
         print(f"Audio downloaded at: {output_path}")
     return output_path
 
+import subprocess
+
+def remove_silence(audio_file):
+    """Remove silence from the audio file using ffmpeg."""
+    output_file = audio_file.replace('.m4a', '_no_silence.m4a')
+    command = f"ffmpeg -i {audio_file} -af silenceremove=1:0:-50dB {output_file}"
+    subprocess.call(command, shell=True)
+    return output_file
 
 def download_and_check_audio(video_url, video_title):
-    """Download audio from YouTube video and check if the file exists."""
+    """Download audio from YouTube video, remove silence and check if the file exists."""
     audio_file = download_youtube_audio(video_url, video_title)
     if audio_file is None or not os.path.exists(audio_file):
         print(f"Failed to download audio for {url}")
         return None
-    return audio_file
+    audio_file_no_silence = remove_silence(audio_file)
+    return audio_file_no_silence
