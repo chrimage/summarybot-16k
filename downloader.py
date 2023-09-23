@@ -9,7 +9,7 @@ from urllib.error import HTTPError
 def download_youtube_audio(url, video_title):
     """Download audio from YouTube video and return the file path."""
     youtube = YouTube(url)
-    audio = youtube.streams.filter(only_audio=True,audio_codec="mp4a.40.5").first()
+    audio = youtube.streams.filter(only_audio=True,audio_codec="mp4a.40.5",abr="48kbps").first()
     filename = slugify(video_title) + '.m4a'
     output_directory = os.path.join(os.getcwd(), 'audio')
     from utils import ensure_directory_exists
@@ -28,7 +28,7 @@ import subprocess
 def remove_silence(audio_file):
     """Remove silence from the audio file using ffmpeg."""
     output_file = audio_file.replace('.m4a', '_no_silence.m4a')
-    command = f"ffmpeg -i {audio_file} -af silenceremove=1:0:-50dB {output_file}"
+    command = f"ffmpeg -i {audio_file} -af silenceremove=1:0:-50dB -ac 1 -ab 48k {output_file}"
     subprocess.call(command, shell=True)
     return output_file
 
