@@ -28,8 +28,12 @@ import subprocess
 def remove_silence(audio_file):
     """Remove silence from the audio file using ffmpeg."""
     output_file = audio_file.replace('.m4a', '_no_silence.webm')
-    command = f"ffmpeg -i {audio_file} -af silenceremove=stop_periods=-1:stop_duration=0:start_threshold=0.01:stop_threshold=0.01 -ac 1 -ab 24k -c:a libopus {output_file}"
-    subprocess.call(command, shell=True)
+    if os.path.exists(output_file):
+        print(f"No-silence file already exists at: {output_file}")
+    else:
+        command = f"ffmpeg -i {audio_file} -af silenceremove=stop_periods=-1:stop_duration=0:start_threshold=0.01:stop_threshold=0.01 -ac 1 -ab 24k -c:a libopus {output_file}"
+        subprocess.call(command, shell=True)
+        print(f"No-silence file created at: {output_file}")
     return output_file
 
 def download_and_check_audio(video_url, video_title):
