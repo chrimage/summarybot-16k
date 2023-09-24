@@ -4,3 +4,4 @@ audio/
 transcripts/
 __pycache__/
 .aider*
+.vscode/
